@@ -10,7 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/kalviumcommunity/S85_Weirdest_Song_Titles.git"
   },
-  "keywords": [],
+  "keywords": [
+    "music",
+    "song-titles",
+    "entertainment",
+    "community",
+    "collection"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
