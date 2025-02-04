@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/kalviumcommunity/S85_Weirdest_Song_Titles/issues"
   },
-  "homepage": "https://github.com/kalviumcommunity/S85_Weirdest_Song_Titles#readme"
+  "homepage": "https://github.com/kalviumcommunity/S85_Weirdest_Song_Titles#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
