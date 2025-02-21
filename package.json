@@ -4,7 +4,8 @@
   "description": "Welcome to the Weirdest Song Titles project! This fun and quirky project is dedicated to collecting and displaying some of the most bizarre, hilarious, and downright strange song titles ever created. Users can explore a growing collection of weird song names, contribute their own discoveries, and share a laugh at the absurdity of the history of music.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,9 @@
   },
   "homepage": "https://github.com/kalviumcommunity/S85_Weirdest_Song_Titles#readme",
   "dependencies": {
-    "express": "^4.21.2"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.1",
+    "nodemon": "^3.1.9"
   }
 }
