@@ -1,43 +1,36 @@
 require("dotenv").config({ path: "./config/.env" });
-const express = require("express"); // Import Express
+const express = require("express");
 const connectDB = require("./Database/db");
-const app = express(); // Create an Express app
+const songRoutes = require("./router/routes"); // Import routes
+const app = express();
 
-const PORT = process.env.PORT || 5000; // Use environment variable if available
+const PORT = process.env.PORT || 5000;
 
+// Connect to MongoDB
 connectDB();
+
+// Middleware
+app.use(express.json()); // Enable JSON parsing
 
 // Home Route - Display Connection Status
 app.get("/", (req, res) => {
   const status = require("mongoose").connection.readyState;
-  let message = "";
-
-  switch (status) {
-    case 0:
-      message = "Disconnected";
-      break;
-    case 1:
-      message = "Connected";
-      break;
-    case 2:
-      message = "Connecting...";
-      break;
-    case 3:
-      message = "Disconnecting...";
-      break;
-    default:
-      message = "Unknown State";
-  }
-
-  res.json({ database_status: message });
+  const messages = [
+    "Disconnected",
+    "Connected",
+    "Connecting...",
+    "Disconnecting...",
+  ];
+  res.json({ database_status: messages[status] || "Unknown State" });
 });
 
-// Define the /ping route
-app.get("/ping", (req, res) => {
-  res.status(200).send("pong"); // Explicitly set the HTTP status code to 200
-});
+// CRUD API Routes
+app.use("/api/songs", songRoutes);
 
-// Start the server
+// Ping Route
+app.get("/ping", (req, res) => res.status(200).send("pong"));
+
+// Start the Server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
