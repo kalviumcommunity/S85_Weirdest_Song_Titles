@@ -1,0 +1,33 @@
+meta {
+  name: Update by ID
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:5000/api/songs/67bd4d6bdeb8d9dda255cbdf
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Weirdest Song Ever",
+    "artist": "Crazy Band",
+    "album": "Odd",
+    "year": 2025,
+    "genre": "Experimental",
+    "duration": "3:45",
+    "language": "Gibberish",
+    "weirdness_level": 10,
+    "rating": 8,
+    "fun_fact": "This song was recorded underwater!",
+    "listener_reactions": ["Confused", "Amazed", "Laughing", "Scared"],
+    "song_link": "https://example.com/weirdest-song-ever",
+    "cover_image": "https://example.com/weirdest-song-cover.jpg"
+  }
+}
