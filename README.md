@@ -1,5 +1,7 @@
 # S85_Weirdest_Song_Titles 🎵🤪
 
+#### ASAP Project Cloudflare Deployment Link: https://asap-project-315.pages.dev/
+
 #### ASAP Project Render Deployment Link: https://s85-weirdest-song-titles.onrender.com/ping
 
 ## Project Title:
