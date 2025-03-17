@@ -1,12 +1,31 @@
 //Landing page
+import SongCard from "./components/SongCard";
 
-function App() {
-  return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1>Welcome to the Weirdest Song Titles Project 🎵</h1>
-      <p>Explore the most bizarre song names ever created.</p>
-    </div>
-  );
-}
+const sampleSong = {
+  title: "Weirdest Song Ever",
+  artist: "DJ Funky",
+  album: "Bizarre Tunes",
+  year: 2023,
+  genre: "Experimental",
+  duration: "03:45",
+  language: "Gibberish",
+  weirdness_level: 9,
+  rating: 8,
+  fun_fact: "This song was recorded using kitchen utensils!",
+  listener_reactions: [
+    "What did I just hear?",
+    "Surprisingly catchy!",
+    "Is that a spoon solo?",
+  ],
+  song_link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  cover_image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d",
+};
+
+const App = () => (
+  <div>
+    <h1>Weirdest Song Collection 🎵</h1>
+    <SongCard song={sampleSong} />
+  </div>
+);
 
 export default App;
