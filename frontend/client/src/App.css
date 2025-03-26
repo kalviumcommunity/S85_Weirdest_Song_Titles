@@ -1,36 +1,47 @@
-/* App.css */
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #f9fafb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3rem;
-  text-align: center;
-  color: #1f2937;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem;
-}
-
 .song-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  width: 100%;
+  grid-template-columns: repeat(4, 1fr); /* 4 cards in a row */
+  gap: 20px; /* Space between cards */
+}
+
+.song-card {
+  display: flex;
+  flex-direction: column;
+   /* Ensures consistent height */
+  /*min-height: 500px; /* Set a minimum height for uniformity */
+  /*max-height: 520px; /* Optional: Cap the max height to avoid overflow */
+  border-radius: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #FFD194, #FF6A88);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Hide overflowing content */
+}
+
+/* Ensure the song title and description don't push the card height */
+.song-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.song-card img {
+  border-radius: 2rem;
+}
+
+.song-card p {
+  flex-grow: 1; /* Forces description to take equal space */
+  overflow: hidden; /* Avoid content overflow */
+  text-overflow: ellipsis; /* Add '...' if content is too long */
+  white-space: wrap; /* Allow wrapping */
+}
+
+@media (max-width: 1024px) {
+  .song-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards in a row for smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .song-list {
+    grid-template-columns: repeat(1, 1fr); /* 1 card in a row for mobile */
+  }
 }

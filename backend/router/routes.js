@@ -9,9 +9,11 @@ router.post("/", async (req, res) => {
     await newSong.save();
     res.status(201).json({ success: true, data: newSong });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error adding song", error });
+    res.status(500).json({
+      success: false,
+      message: "Error adding song",
+      error: error.message,
+    });
   }
 });
 
@@ -21,9 +23,11 @@ router.get("/", async (req, res) => {
     const songs = await Song.find();
     res.status(200).json({ success: true, data: songs });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error fetching songs", error });
+    res.status(500).json({
+      success: false,
+      message: "Error fetching songs",
+      error: error.message,
+    });
   }
 });
 
@@ -37,9 +41,11 @@ router.get("/:id", async (req, res) => {
         .json({ success: false, message: "Song not found" });
     res.status(200).json({ success: true, data: song });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error fetching song", error });
+    res.status(500).json({
+      success: false,
+      message: "Error fetching song",
+      error: error.message,
+    });
   }
 });
 
@@ -56,9 +62,11 @@ router.put("/:id", async (req, res) => {
         .json({ success: false, message: "Song not found" });
     res.status(200).json({ success: true, data: updatedSong });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error updating song", error });
+    res.status(500).json({
+      success: false,
+      message: "Error updating song",
+      error: error.message,
+    });
   }
 });
 
@@ -76,7 +84,11 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ success: false, message: "Error deleting song", error });
+      .json({
+        success: false,
+        message: "Error deleting song",
+        error: error.message,
+      });
   }
 });
 
