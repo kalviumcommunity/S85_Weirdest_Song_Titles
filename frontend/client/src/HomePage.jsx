@@ -13,7 +13,7 @@ const HomePage = () => {
         const response = await axios.get("http://localhost:5000/api/songs");
         setSongs(response.data.data); // ✅ Correctly accessing songs array
       } catch (error) {
-        console.error("Error fetching songs:", error);
+        console.error("Error fetching songs:", error.message);
       } finally {
         setLoading(false);
       }
