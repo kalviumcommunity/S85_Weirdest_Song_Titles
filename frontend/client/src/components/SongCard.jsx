@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { PlayCircle } from "lucide-react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import "./SongCard.css";
 
 const SongCard = ({ song }) => {
@@ -44,16 +44,16 @@ const cardVariants = {
   hover: { scale: 1.05 },
 };
 
-SongCard.propTypes = {
-  song: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    artist: PropTypes.string.isRequired,
-    album: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    fun_fact: PropTypes.string.isRequired,
-    cover_image: PropTypes.string.isRequired,
-    song_link: PropTypes.string.isRequired,
-  }).isRequired,
-};
+// SongCard.propTypes = {
+//   song: PropTypes.shape({
+//     title: PropTypes.string.isRequired,
+//     artist: PropTypes.string.isRequired,
+//     album: PropTypes.string.isRequired,
+//     genre: PropTypes.string.isRequired,
+//     fun_fact: PropTypes.string.isRequired,
+//     cover_image: PropTypes.string.isRequired,
+//     song_link: PropTypes.string.isRequired,
+//   }).isRequired,
+// };
 
 export default SongCard;
