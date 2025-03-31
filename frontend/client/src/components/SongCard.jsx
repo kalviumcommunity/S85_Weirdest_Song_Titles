@@ -37,7 +37,7 @@ const SongCard = ({ song }) => {
   );
 };
 
-// Animation variants (moved outside for clarity)
+// Animation variants
 const cardVariants = {
   hidden: { opacity: 0, scale: 0.8 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },

@@ -1,31 +1,33 @@
 import { useState, useEffect } from "react";
-import SongCard from "./components/SongCard";
+import SongCard from "../components/SongCard";
+import AddSong from "../components/AddSong";
 import axios from "axios";
 
 const HomePage = () => {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch songs from backend
   useEffect(() => {
-    const fetchSongs = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/songs");
-        setSongs(response.data.data); // ✅ Correctly accessing songs array
-      } catch (error) {
-        console.error("Error fetching songs:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchSongs();
   }, []);
+
+  const fetchSongs = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/songs");
+      setSongs(response.data.data);
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) return <h2>Loading songs...</h2>;
 
   return (
     <div>
       <h1>Weirdest Song Collection 🎵</h1>
+      <AddSong onSongAdded={fetchSongs} />
       {songs.length === 0 ? (
         <p>No songs found. Add some weird songs!</p>
       ) : (
