@@ -1,37 +1,17 @@
 const mongoose = require("mongoose");
 
 const songSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    minlength: 2,
-    maxlength: 100,
-  },
-  artist: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: 2,
-    maxlength: 50,
-  },
-  album: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: 2,
-    maxlength: 50,
-  },
+  title: { type: String, required: true, unique: true, trim: true },
+  artist: { type: String, required: true, trim: true },
+  album: { type: String, trim: true },
   year: {
     type: Number,
-    required: true,
     min: 1900,
     max: new Date().getFullYear(),
-  },
+    default: null,
+  }, // ⬅️ Made optional
   genre: {
     type: String,
-    required: true,
     enum: [
       "Pop",
       "Rock",
@@ -42,73 +22,35 @@ const songSchema = new mongoose.Schema({
       "EDM",
       "Metal",
       "Country",
+      "Novelty",
     ],
+    default: "Novelty", // ⬅️ Default value
   },
   duration: {
     type: String,
-    required: true,
     match: [/^\d+:\d{2}$/, "Duration must be in 'MM:SS' format"],
-  },
-  language: {
-    type: String,
-    required: true,
-    trim: true,
-    enum: [
-      "English",
-      "Spanish",
-      "French",
-      "Hindi",
-      "Japanese",
-      "Korean",
-      "Nepali",
-      "Bhojpuri",
-      "Maithili",
-      "Gibberish",
-      "Other",
-    ],
-  },
-  weirdness_level: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 10,
-  },
-  rating: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 10,
-  },
-  fun_fact: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: 10,
-    maxlength: 300,
-  },
-  listener_reactions: {
-    type: [String],
-    required: true,
-    validate: {
-      validator: (arr) => arr.length > 0,
-      message: "At least one listener reaction is required.",
-    },
-  },
+    default: null,
+  }, // ⬅️ Optional
+  language: { type: String, enum: ["English", "Other"], default: "English" }, // ⬅️ Default value
+  weirdness_level: { type: Number, min: 1, max: 10, default: null }, // ⬅️ Optional
+  rating: { type: Number, min: 1, max: 10, default: null }, // ⬅️ Optional
+  fun_fact: { type: String, trim: true, default: "" },
+  listener_reactions: { type: [String], default: [] }, // ⬅️ Optional
   song_link: {
     type: String,
-    required: true,
     match: [
       /^(https?:\/\/)?(www\.)?[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
       "Invalid URL format",
     ],
+    required: true,
   },
   cover_image: {
     type: String,
-    required: true,
     match: [
       /^(https?:\/\/)?(www\.)?[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
       "Invalid URL format",
     ],
+    required: true,
   },
 });
 

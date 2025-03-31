@@ -1,5 +1,5 @@
 //Landing page
-import HomePage from "./HomePage";
+import HomePage from "./pages/HomePage";
 import "./App.css";
 
 const App = () => (

@@ -5,6 +5,7 @@ const router = express.Router();
 // ✅ CREATE - Add a new song
 router.post("/", async (req, res) => {
   try {
+    console.log("Received song data:", req.body);
     const newSong = new Song(req.body);
     await newSong.save();
     res.status(201).json({ success: true, data: newSong });
@@ -82,13 +83,11 @@ router.delete("/:id", async (req, res) => {
       .status(200)
       .json({ success: true, message: "Song deleted successfully" });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Error deleting song",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Error deleting song",
+      error: error.message,
+    });
   }
 });
 
