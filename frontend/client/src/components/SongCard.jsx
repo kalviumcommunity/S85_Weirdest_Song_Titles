@@ -1,11 +1,26 @@
-import { motion } from "framer-motion";
-import { PlayCircle } from "lucide-react";
+import { motion as Motion } from "framer-motion";
+import { PlayCircle, Pencil, Trash2 } from "lucide-react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import { deleteSong } from "../utils/api";
 import "./SongCard.css";
 
-const SongCard = ({ song }) => {
+const SongCard = ({ song, onSongUpdate }) => {
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate(`/update/${song._id}`);
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm(`Are you sure you want to delete "${song.title}"?`)) {
+      await deleteSong(song._id);
+      onSongUpdate(); // Refresh the songs list
+    }
+  };
+
   return (
-    <motion.div
+    <Motion.div
       className="song-card"
       initial="hidden"
       animate="visible"
@@ -14,7 +29,7 @@ const SongCard = ({ song }) => {
     >
       <div className="image-container">
         <img src={song.cover_image} alt={song.title} />
-        <motion.a
+        <Motion.a
           href={song.song_link}
           target="_blank"
           rel="noopener noreferrer"
@@ -22,7 +37,7 @@ const SongCard = ({ song }) => {
           whileHover={{ scale: 1.2 }}
         >
           <PlayCircle size={48} />
-        </motion.a>
+        </Motion.a>
       </div>
 
       <div className="content">
@@ -33,7 +48,24 @@ const SongCard = ({ song }) => {
         <p className="genre">{song.genre}</p>
         <p className="fun-fact">{song.fun_fact}</p>
       </div>
-    </motion.div>
+
+      <div className="song-card-actions">
+        <Motion.button
+          className="edit-button"
+          onClick={handleEdit}
+          whileHover={{ scale: 1.1 }}
+        >
+          <Pencil size={22} />
+        </Motion.button>
+        <Motion.button
+          className="delete-button"
+          onClick={handleDelete}
+          whileHover={{ scale: 1.1 }}
+        >
+          <Trash2 size={22} />
+        </Motion.button>
+      </div>
+    </Motion.div>
   );
 };
 
@@ -46,6 +78,7 @@ const cardVariants = {
 
 SongCard.propTypes = {
   song: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     artist: PropTypes.string.isRequired,
     album: PropTypes.string.isRequired,
@@ -54,6 +87,7 @@ SongCard.propTypes = {
     cover_image: PropTypes.string.isRequired,
     song_link: PropTypes.string.isRequired,
   }).isRequired,
+  onSongUpdate: PropTypes.func.isRequired,
 };
 
 export default SongCard;

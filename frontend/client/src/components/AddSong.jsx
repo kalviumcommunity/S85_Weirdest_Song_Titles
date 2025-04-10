@@ -1,8 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
+import { addSong } from "../utils/api";
 import "./AddSong.css";
 
 const AddSong = ({ onSongAdded }) => {
+  const [showForm, setShowForm] = useState(false);
   const [songData, setSongData] = useState({
     title: "",
     artist: "",
@@ -13,38 +14,24 @@ const AddSong = ({ onSongAdded }) => {
     cover_image: "",
   });
 
-  const [showForm, setShowForm] = useState(false);
-
   const handleChange = (e) => {
     setSongData({ ...songData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting song data:", songData);
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/songs",
-        songData
-      );
-      console.log("Song added:", response.data);
-      setSongData({
-        title: "",
-        artist: "",
-        album: "",
-        genre: "",
-        fun_fact: "",
-        song_link: "",
-        cover_image: "",
-      });
-      setShowForm(false); // Hide form after submission
-      onSongAdded(); // Refresh the song list
-    } catch (error) {
-      console.error(
-        "Error adding song:",
-        error.response?.data || error.message
-      );
-    }
+    await addSong(songData);
+    setSongData({
+      title: "",
+      artist: "",
+      album: "",
+      genre: "",
+      fun_fact: "",
+      song_link: "",
+      cover_image: "",
+    });
+    setShowForm(false);
+    onSongAdded();
   };
 
   return (
@@ -58,56 +45,25 @@ const AddSong = ({ onSongAdded }) => {
 
       {showForm && (
         <form onSubmit={handleSubmit} className="add-song-form">
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            value={songData.title}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="artist"
-            placeholder="Artist"
-            value={songData.artist}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="album"
-            placeholder="Album"
-            value={songData.album}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="genre"
-            placeholder="Genre"
-            value={songData.genre}
-            onChange={handleChange}
-          />
-          <textarea
-            name="fun_fact"
-            placeholder="Fun Fact"
-            value={songData.fun_fact}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="song_link"
-            placeholder="Song Link"
-            value={songData.song_link}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="cover_image"
-            placeholder="Cover Image URL"
-            value={songData.cover_image}
-            onChange={handleChange}
-          />
+          {[
+            "title",
+            "artist",
+            "album",
+            "genre",
+            "fun_fact",
+            "song_link",
+            "cover_image",
+          ].map((field) => (
+            <input
+              key={field}
+              type="text"
+              name={field}
+              placeholder={field.replace("_", " ")}
+              value={songData[field]}
+              onChange={handleChange}
+              required
+            />
+          ))}
           <button type="submit">Add Song</button>
         </form>
       )}
