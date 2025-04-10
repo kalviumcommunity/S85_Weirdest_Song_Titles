@@ -11,7 +11,7 @@ body {
   width: 90%;
   margin: 30px auto;
   background: white;
-  padding: 20px 60px 40px 30px;
+  padding: 20px 20px 40px;
   border-radius: 16px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(240, 240, 240, 0.8);
@@ -47,6 +47,8 @@ body {
 
 .update-song-form .form-group {
   margin-bottom: 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .update-song-form label {
@@ -57,7 +59,14 @@ body {
   font-size: 1rem;
 }
 
-.update-song-form input {
+.required-asterisk {
+  color: #444444;
+  margin-left: 4px;
+  font-weight: bold;
+}
+
+.update-song-form input,
+.update-song-form select {
   width: 100%;
   padding: 14px 16px;
   margin: 0;
@@ -67,14 +76,36 @@ body {
   transition: all 0.3s;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
-.update-song-form input:hover {
+.update-song-form select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1em;
+  padding-right: 40px;
+  color: #484848;
+}
+
+.update-song-form select option {
+  color: #444444;
+}
+
+.update-song-form select option:first-child {
+  color: #929292;
+}
+
+.update-song-form input:hover,
+.update-song-form select:hover {
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
 }
 
-.update-song-form input:focus {
+.update-song-form input:focus,
+.update-song-form select:focus {
   outline: none;
   border-color: #6741d9;
   box-shadow: 0 0 0 3px rgba(103, 65, 217, 0.1);
@@ -83,15 +114,16 @@ body {
 
 .form-buttons {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   margin-top: 30px;
   justify-content: center;
-  padding-left: 30px;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .form-buttons button {
-  min-width: 257px;
-  max-width: 300px;
+  flex: 1;
   padding: 14px;
   border: none;
   border-radius: 10px;
@@ -100,6 +132,7 @@ body {
   font-weight: 600;
   transition: all 0.3s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
 }
 
 .form-buttons button[type="button"] {
@@ -131,4 +164,32 @@ body {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .form-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-buttons button {
+    width: 100%;
+  }
+  
+  .update-song-container {
+    padding: 20px;
+  }
+}
+
+.change-indicator {
+  color: #2575fc;
+  font-size: 0.85rem;
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.field-changed input,
+.field-changed select {
+  border-color: #2575fc;
+  background-color: #f8faff;
 }
