@@ -1,15 +1,25 @@
 const express = require("express");
 const Song = require("../models/songModel"); // Import your Mongoose model
+const validateSong = require("../middleware/validateSong"); // Import validation middleware
 const router = express.Router();
 
 // ✅ CREATE - Add a new song
-router.post("/", async (req, res) => {
+router.post("/", validateSong, async (req, res) => {
   try {
     console.log("Received song data:", req.body);
     const newSong = new Song(req.body);
     await newSong.save();
     res.status(201).json({ success: true, data: newSong });
   } catch (error) {
+    // Handle duplicate key error (unique title constraint)
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "A song with this title already exists",
+        error: "Duplicate title",
+      });
+    }
+
     res.status(500).json({
       success: false,
       message: "Error adding song",
@@ -51,7 +61,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // ✅ UPDATE - Modify a song by ID
-router.put("/:id", async (req, res) => {
+router.put("/:id", validateSong, async (req, res) => {
   try {
     const updatedSong = await Song.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -63,6 +73,15 @@ router.put("/:id", async (req, res) => {
         .json({ success: false, message: "Song not found" });
     res.status(200).json({ success: true, data: updatedSong });
   } catch (error) {
+    // Handle duplicate key error (unique title constraint)
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "A song with this title already exists",
+        error: "Duplicate title",
+      });
+    }
+
     res.status(500).json({
       success: false,
       message: "Error updating song",
