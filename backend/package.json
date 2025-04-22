@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/kalviumcommunity/S85_Weirdest_Song_Titles#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

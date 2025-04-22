@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./Database/db");
 const songRoutes = require("./router/routes"); // Import routes
+const userRoutes = require("./router/userRouter"); // Import user routes
 const app = express();
 
 const PORT = process.env.PORT || 5000;
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 
 // CRUD API Routes
 app.use("/api/songs", songRoutes);
+app.use("/api/users", userRoutes); // Add user routes
 
 // Ping Route
 app.get("/ping", (req, res) => res.status(200).send("pong"));

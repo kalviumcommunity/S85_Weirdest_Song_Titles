@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchSongById, updateSong } from "../utils/api";
+import axios from "axios";
 import "./UpdateSong.css";
 
 const UpdateSong = () => {
@@ -9,6 +10,7 @@ const UpdateSong = () => {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [originalData, setOriginalData] = useState(null);
+  const [users, setUsers] = useState([]);
   const [songData, setSongData] = useState({
     title: "",
     artist: "",
@@ -17,6 +19,7 @@ const UpdateSong = () => {
     fun_fact: "",
     song_link: "",
     cover_image: "",
+    created_by: "",
   });
   const [changedFields, setChangedFields] = useState({});
 
@@ -32,6 +35,19 @@ const UpdateSong = () => {
     };
     loadSongDetails();
   }, [id]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/users");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -137,6 +153,35 @@ const UpdateSong = () => {
             )}
           </div>
         ))}
+
+        <div
+          className={`form-group ${
+            changedFields.created_by ? "field-changed" : ""
+          }`}
+        >
+          <label htmlFor="created_by">
+            Created By
+            <span className="required-asterisk">*</span>
+            {changedFields.created_by && (
+              <span className="change-indicator">● Modified</span>
+            )}
+          </label>
+          <select
+            id="created_by"
+            name="created_by"
+            value={songData.created_by}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select User</option>
+            {users.map((user) => (
+              <option key={user._id} value={user._id}>
+                {user.username}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="form-buttons">
           <button type="button" onClick={handleCancel}>
             Cancel
