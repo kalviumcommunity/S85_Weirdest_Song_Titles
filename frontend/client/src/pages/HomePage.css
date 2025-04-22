@@ -1,0 +1,114 @@
+.homepage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 10px 0;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.welcome-text {
+  color: #666;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.auth-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #ff758c;
+  color: white;
+}
+
+.auth-btn:hover {
+  background: #ff8fa3;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn {
+  background: #666;
+}
+
+.logout-btn:hover {
+  background: #777;
+}
+
+.message {
+  text-align: center;
+  color: #666;
+  font-size: 1.2rem;
+  margin: 40px 0;
+}
+
+/* New styles for filter section */
+.filter-section {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.user-filter-dropdown {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  min-width: 200px;
+  transition: all 0.3s ease;
+}
+
+.user-filter-dropdown:hover {
+  border-color: #ff758c;
+}
+
+.user-filter-dropdown:focus {
+  outline: none;
+  border-color: #ff758c;
+  box-shadow: 0 0 0 2px rgba(255, 117, 140, 0.2);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .auth-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user-filter-dropdown {
+    width: 100%;
+    max-width: 300px;
+  }
+} 

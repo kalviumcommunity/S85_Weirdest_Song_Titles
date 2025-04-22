@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addSong } from "../utils/api";
+import axios from "axios";
 import "./AddSong.css";
 
 const AddSong = ({ onSongAdded }) => {
   const [showForm, setShowForm] = useState(false);
+  const [users, setUsers] = useState([]);
   const [songData, setSongData] = useState({
     title: "",
     artist: "",
@@ -12,9 +14,23 @@ const AddSong = ({ onSongAdded }) => {
     fun_fact: "",
     song_link: "",
     cover_image: "",
+    created_by: "",
   });
   const [errors, setErrors] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/users");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const handleChange = (e) => {
     setSongData({ ...songData, [e.target.name]: e.target.value });
@@ -39,6 +55,7 @@ const AddSong = ({ onSongAdded }) => {
         fun_fact: "",
         song_link: "",
         cover_image: "",
+        created_by: "",
       });
       setShowForm(false);
       onSongAdded();
@@ -138,6 +155,33 @@ const AddSong = ({ onSongAdded }) => {
               )}
             </div>
           ))}
+
+          <div className="form-field">
+            <label htmlFor="created_by">
+              Created By
+              <span className="required-asterisk">*</span>
+            </label>
+            <select
+              id="created_by"
+              name="created_by"
+              value={songData.created_by}
+              onChange={handleChange}
+              required
+              className={
+                errors.some((err) => err.toLowerCase().includes("created_by"))
+                  ? "error"
+                  : ""
+              }
+            >
+              <option value="">Select User</option>
+              {users.map((user) => (
+                <option key={user._id} value={user._id}>
+                  {user.username}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Adding..." : "Add Song"}
           </button>

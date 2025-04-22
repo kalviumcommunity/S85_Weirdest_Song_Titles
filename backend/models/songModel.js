@@ -52,6 +52,11 @@ const songSchema = new mongoose.Schema({
     ],
     required: true,
   },
+  created_by: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 const Song = mongoose.model("Song", songSchema);

@@ -1,0 +1,35 @@
+.user-filter {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-filter label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.user-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.user-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.user-select option {
+  padding: 8px;
+} 
